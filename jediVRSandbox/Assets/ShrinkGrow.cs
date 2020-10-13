@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class ShrinkGrow : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject emptyGameObject;
+    private GameObject player;
+    private GameObject emptyGameObject;
     public GameObject map;
-    public float maxSize = 2;
-    public float minSize = 1;
+    public float maxSize = 1f;
+    public float minSize = 0.5f;
     public float timeToChange = 1f;
     public bool quickChange = false;
-    public bool smallToBig = true;
+    public bool shrinkPlayer = false;
     public float coolDownTimer = 1f;
     private bool coolDownReady = true;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = this.gameObject;
     }
 
     // Update is called once per frame
@@ -25,11 +25,13 @@ public class ShrinkGrow : MonoBehaviour
     {
         if (Input.GetKeyDown("space") && coolDownReady)
         {
+            emptyGameObject = new GameObject("GameObject used to scale world");
             emptyGameObject.transform.position = new Vector3 (player.transform.position.x, 0f, player.transform.position.z);
+            emptyGameObject.transform.localScale = map.transform.localScale;
             map.transform.SetParent(emptyGameObject.transform);
             if (quickChange)
             {
-                if (smallToBig)
+                if (shrinkPlayer)
                 {
                     emptyGameObject.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
                 }
@@ -38,14 +40,13 @@ public class ShrinkGrow : MonoBehaviour
                     emptyGameObject.transform.localScale = new Vector3(minSize, minSize, minSize);
                 }
                 map.transform.SetParent(null);
-                smallToBig = !smallToBig;
+                shrinkPlayer = !shrinkPlayer;
             }
             else 
             {
                 StartCoroutine(ScaleOverTime(timeToChange));
-                smallToBig = !smallToBig;
+                shrinkPlayer = !shrinkPlayer;
             }
-            
             StartCoroutine(CoolDownCoroutine());
 
         }
@@ -56,7 +57,7 @@ public class ShrinkGrow : MonoBehaviour
     {
         Vector3 originalScale = emptyGameObject.transform.localScale;
         Vector3 destinationScale;
-        if (smallToBig)
+        if (shrinkPlayer)
         {
              destinationScale = new Vector3(maxSize, maxSize, maxSize);
         }
@@ -74,6 +75,7 @@ public class ShrinkGrow : MonoBehaviour
             yield return null;
         } while (currentTime <= time);
         map.transform.SetParent(null);
+        Destroy(emptyGameObject);
     }
 
     IEnumerator CoolDownCoroutine()
