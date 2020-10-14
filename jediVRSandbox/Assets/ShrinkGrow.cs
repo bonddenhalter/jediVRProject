@@ -11,7 +11,7 @@ public class ShrinkGrow : MonoBehaviour
     public float minSize = 0.5f;
     public float timeToChange = 1f;
     public bool quickChange = false;
-    public bool shrinkPlayer = false;
+    public bool playerIsHuman = false;
     public float coolDownTimer = 1f;
     private bool coolDownReady = true;
     // Start is called before the first frame update
@@ -31,7 +31,7 @@ public class ShrinkGrow : MonoBehaviour
             map.transform.SetParent(emptyGameObject.transform);
             if (quickChange)
             {
-                if (shrinkPlayer)
+                if (playerIsHuman)
                 {
                     emptyGameObject.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
                 }
@@ -40,12 +40,12 @@ public class ShrinkGrow : MonoBehaviour
                     emptyGameObject.transform.localScale = new Vector3(minSize, minSize, minSize);
                 }
                 map.transform.SetParent(null);
-                shrinkPlayer = !shrinkPlayer;
+                playerIsHuman = !playerIsHuman;
             }
             else 
             {
                 StartCoroutine(ScaleOverTime(timeToChange));
-                shrinkPlayer = !shrinkPlayer;
+                playerIsHuman = !playerIsHuman;
             }
             StartCoroutine(CoolDownCoroutine());
 
@@ -57,7 +57,7 @@ public class ShrinkGrow : MonoBehaviour
     {
         Vector3 originalScale = emptyGameObject.transform.localScale;
         Vector3 destinationScale;
-        if (shrinkPlayer)
+        if (playerIsHuman)
         {
              destinationScale = new Vector3(maxSize, maxSize, maxSize);
         }
