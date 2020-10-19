@@ -14,6 +14,8 @@ public class ShrinkGrow : MonoBehaviour
     public bool shrinkPlayer = false;
     public float coolDownTimer = 1f;
     private bool coolDownReady = true;
+    private bool quickChangeCoolDownReady = false;
+    public Camera centerEyeAnchor;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,7 +25,13 @@ public class ShrinkGrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space") && coolDownReady)
+        if (OVRInput.GetDown(OVRInput.RawButton.RThumbstick))
+        {
+            quickChange = !quickChange;
+        }
+
+        //Uses Button A on the Rift
+        if (OVRInput.Get(OVRInput.RawButton.A) && coolDownReady)
         {
             emptyGameObject = new GameObject("GameObject used to scale world");
             emptyGameObject.transform.position = new Vector3 (player.transform.position.x, 0f, player.transform.position.z);
@@ -31,6 +39,7 @@ public class ShrinkGrow : MonoBehaviour
             map.transform.SetParent(emptyGameObject.transform);
             if (quickChange)
             {
+                StartCoroutine(Blindfold());
                 if (shrinkPlayer)
                 {
                     emptyGameObject.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
@@ -81,8 +90,19 @@ public class ShrinkGrow : MonoBehaviour
     IEnumerator CoolDownCoroutine()
     {
         coolDownReady = !coolDownReady;
+        this.GetComponent<OVRPlayerController>().enabled = false;
         yield return new WaitForSeconds(coolDownTimer);
         coolDownReady = !coolDownReady;
+        this.GetComponent<OVRPlayerController>().enabled = true;
     }
+
+    IEnumerator Blindfold()
+    {
+        centerEyeAnchor.cullingMask = 0;
+        yield return new WaitForSeconds(coolDownTimer);
+        centerEyeAnchor.cullingMask = -1;
+    }
+
+
 }
 
