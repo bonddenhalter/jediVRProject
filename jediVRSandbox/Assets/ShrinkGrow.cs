@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShrinkGrow : MonoBehaviour
 {
-    private GameObject player;
+    public GameObject player;
     private GameObject emptyGameObject;
     public GameObject map;
     public float maxSize = 1f;
@@ -19,12 +19,14 @@ public class ShrinkGrow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = this.gameObject;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
         if (OVRInput.GetDown(OVRInput.RawButton.RThumbstick))
         {
             quickChange = !quickChange;
@@ -42,10 +44,14 @@ public class ShrinkGrow : MonoBehaviour
                 StartCoroutine(Blindfold());
                 if (shrinkPlayer)
                 {
+                    this.gameObject.GetComponent<CharacterController>().height = 1f;
+                    this.gameObject.GetComponent<CharacterController>().radius = 0.25f;
                     emptyGameObject.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
                 }
                 else
                 {
+                    this.gameObject.GetComponent<CharacterController>().height = 2f;
+                    this.gameObject.GetComponent<CharacterController>().radius = 0.5f;
                     emptyGameObject.transform.localScale = new Vector3(minSize, minSize, minSize);
                 }
                 map.transform.SetParent(null);
@@ -53,6 +59,16 @@ public class ShrinkGrow : MonoBehaviour
             }
             else 
             {
+                if (shrinkPlayer)
+                {
+                    this.gameObject.GetComponent<CharacterController>().height = 1f;
+                    this.gameObject.GetComponent<CharacterController>().radius = 0.25f;
+                }
+                else
+                {
+                    this.gameObject.GetComponent<CharacterController>().height = 2f;
+                    this.gameObject.GetComponent<CharacterController>().radius = 0.5f;
+                }
                 StartCoroutine(ScaleOverTime(timeToChange));
                 shrinkPlayer = !shrinkPlayer;
             }
