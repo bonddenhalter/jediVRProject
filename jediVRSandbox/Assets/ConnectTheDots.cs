@@ -74,6 +74,7 @@ public class ConnectTheDots : MonoBehaviour
             {
                 inProgress = false;
                 finished = true;
+                onFinish();
             }
             else //game still going
             {
@@ -82,5 +83,10 @@ public class ConnectTheDots : MonoBehaviour
                 nextSpot.SetActive(true);
             }
         }
+    }
+
+    private void onFinish()
+    {
+        line.loop = true;
     }
 }
