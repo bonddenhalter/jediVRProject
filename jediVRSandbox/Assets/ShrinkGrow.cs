@@ -36,6 +36,7 @@ public class ShrinkGrow : MonoBehaviour
         if (OVRInput.Get(OVRInput.RawButton.A) && coolDownReady)
         {
             emptyGameObject = new GameObject("GameObject used to scale world");
+            this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             emptyGameObject.transform.position = new Vector3 (player.transform.position.x, 0f, player.transform.position.z);
             emptyGameObject.transform.localScale = map.transform.localScale;
             map.transform.SetParent(emptyGameObject.transform);
@@ -55,6 +56,7 @@ public class ShrinkGrow : MonoBehaviour
                     emptyGameObject.transform.localScale = new Vector3(minSize, minSize, minSize);
                 }
                 map.transform.SetParent(null);
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 shrinkPlayer = !shrinkPlayer;
             }
             else 
@@ -101,6 +103,7 @@ public class ShrinkGrow : MonoBehaviour
         } while (currentTime <= time);
         map.transform.SetParent(null);
         Destroy(emptyGameObject);
+        this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
 
     IEnumerator CoolDownCoroutine()
