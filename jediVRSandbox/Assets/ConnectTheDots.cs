@@ -15,6 +15,7 @@ public class ConnectTheDots : MonoBehaviour
     public LineRenderer line; // the line we will draw
     public int numSpots; //the number of dots to connect. If we need to have the same dot twice, just create multiple dots in the same position
 
+    private StretchTextScript stretchTextScript; // need this to make stretch text appear when puzzle is finished
     private GameObject nextSpot; //the next dot we need to touch
     private int lightCount = 0; //how many lights we've touched
     private bool inProgress = false; // true if the first light has been touched, starting the game, and the last light hasn't been reached yet. TODO: reset puzzle if we leave the game area without finishing, if that's possible
@@ -34,6 +35,8 @@ public class ConnectTheDots : MonoBehaviour
         heightAboveGround = nextSpot.transform.position[1] - 0.5f;
         line.SetPosition(0, new Vector3(nextSpot.transform.position[0], heightAboveGround, nextSpot.transform.position[2])); //initialize the line to be at the center of the first dot
         line.SetPosition(1, new Vector3(nextSpot.transform.position[0], heightAboveGround, nextSpot.transform.position[2]));
+
+        stretchTextScript = this.transform.parent.Find("Stretch-Text Puzzle").GetComponent<StretchTextScript>();
     }
 
     // Update is called once per frame
@@ -88,5 +91,6 @@ public class ConnectTheDots : MonoBehaviour
     private void onFinish()
     {
         line.loop = true;
+        stretchTextScript.RevealText();
     }
 }
