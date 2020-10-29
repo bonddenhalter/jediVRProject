@@ -27,15 +27,21 @@ public class grabRight : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
-        Debug.Log("grab");
         if (other.gameObject.tag == "grab")
         {
+            Debug.Log("grab");
             if (canGrab)
             {
-                other.gameObject.transform.position = new Vector3(hand.transform.position.x, hand.transform.position.y, hand.transform.position.z);
-                other.gameObject.transform.eulerAngles = new Vector3(hand.transform.rotation.x, hand.transform.rotation.y, hand.transform.rotation.z);
+                other.transform.SetParent(this.gameObject.transform);
+                other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+                other.GetComponent<Rigidbody>().useGravity = false;
             }
-
+            else
+            {
+                other.GetComponent<Rigidbody>().useGravity = true;
+                other.transform.SetParent(null);
+                //other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+            }
         }
     }
 }
