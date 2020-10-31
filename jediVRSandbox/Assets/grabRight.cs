@@ -29,7 +29,7 @@ public class grabRight : MonoBehaviour
     {
         if (other.gameObject.tag == "grab")
         {
-            Debug.Log("grab");
+            //Debug.Log("grab");
             if (canGrab)
             {
                 other.transform.SetParent(this.gameObject.transform);

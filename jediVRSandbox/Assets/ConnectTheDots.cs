@@ -37,6 +37,10 @@ public class ConnectTheDots : MonoBehaviour
         line.SetPosition(1, new Vector3(nextSpot.transform.position[0], heightAboveGround, nextSpot.transform.position[2]));
 
         stretchTextScript = this.transform.parent.Find("Stretch-Text Puzzle").GetComponent<StretchTextScript>();
+
+        //** uncomment these 2 lines to skip connect-the-dots puzzle (so it's faster to test the crystal placement puzzle, for example) **//
+        //finished = true;
+        //onFinish(); 
     }
 
     // Update is called once per frame
@@ -88,9 +92,24 @@ public class ConnectTheDots : MonoBehaviour
         }
     }
 
+    public bool isFinished()
+    {
+        return finished;
+    }
+
     private void onFinish()
     {
         line.loop = true;
         stretchTextScript.RevealText();
+
+        //now we need to use the spot colliders for the crystal placement puzzle, so activate the colliders but leave the lights off
+        for (int i = 0; i < numSpots-1; i++) //we can ignore the last spot since it's the same as spot0.
+        {
+            GameObject spot = this.transform.Find("Spot" + i.ToString()).gameObject;
+            Light light = spot.GetComponentInChildren<Light>();
+            spot.SetActive(true);
+            spot.transform.localScale = new Vector3(1, 2, 1); //so the crystals can be on the ground. TODO: may want to move them down instead of making them bigger
+            light.gameObject.SetActive(false);
+        }
     }
 }
