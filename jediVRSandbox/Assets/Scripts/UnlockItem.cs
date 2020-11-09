@@ -2,6 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+	DESCRIPTION: This script is for "unlocking" items such doors or boxes.
+	COMPATIBLE SCRIPTS: Inventory.cs, FindItem.cs
+	DIRECTIONS:	Place this script on any object that needs to be unlocked.
+		Ensure that the object has a at least 2 children (a lid/door and 
+		a hinge) so that the lid/door can rotate around a hinge. Also 
+		input the key (an object that will unlock the box/door) and ensure
+		the key object has the FindItem.cs script attached to it.
+	PROJECTED CHANGES: This script currently only works for boxes. It will
+		eventually be changed to work with doors.
+*/
+
 //Script based on various tutorials and code 
 // from Unity Documentation and Unity Forums
 public class UnlockItem : MonoBehaviour
@@ -34,7 +46,7 @@ public class UnlockItem : MonoBehaviour
     }
 	
 	void Update(){
-		if(OVRInput.Get(OVRInput.RawButton.B)){
+		if(OVRInput.Get(OVRInput.RawButton.X)){
 			OnMouseDown();
 		}
 	}
