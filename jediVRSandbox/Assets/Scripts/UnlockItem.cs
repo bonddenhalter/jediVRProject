@@ -34,7 +34,7 @@ public class UnlockItem : MonoBehaviour
     }
 	
 	void Update(){
-		if(OVRInput.Get(OVRInput.RawButton.B)){
+		if(OVRInput.Get(OVRInput.RawButton.X)){
 			OnMouseDown();
 		}
 	}

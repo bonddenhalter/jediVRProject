@@ -13,7 +13,7 @@ public class BellSound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.transform.rotation.eulerAngles.x > 10f || this.transform.rotation.eulerAngles.x < -10f || this.transform.rotation.eulerAngles.z < -10f || this.transform.rotation.eulerAngles.z > 10f)
+        if (this.GetComponent<Rigidbody>().velocity.magnitude != 0f)
         {
             this.GetComponent<AudioSource>().Play();
         }

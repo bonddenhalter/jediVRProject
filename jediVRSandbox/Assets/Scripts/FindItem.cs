@@ -15,9 +15,11 @@ public class FindItem : MonoBehaviour
 	}
 	
 	void OnTriggerEnter(Collider col){
-		if(col.gameObject.name == "OVRPlayerController" && !found){
+
+		
+		if (col.gameObject.tag == "Player" && !found){
 			found = true;
-			
+			Debug.Log("hit");
 			//Put object into player's inventory
 			inventory = col.gameObject.GetComponent<Inventory>();
 			GameObject item = this.gameObject;
