@@ -4,18 +4,35 @@ using UnityEngine;
 
 public class BellSound : MonoBehaviour
 {
+    private Vector3 lastFrame;
+    private Vector3 thisFrame;
     // Start is called before the first frame update
     void Start()
     {
-        
+        lastFrame = this.transform.position;
+        thisFrame = this.transform.position;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
+        lastFrame = thisFrame;
+        thisFrame = this.transform.position;
+
+        if ((thisFrame - lastFrame).magnitude > 0.1f)
+        {
+            if (!this.GetComponent<AudioSource>().isPlaying)
+            {
+                this.GetComponent<AudioSource>().Play();
+            }
+        }
         if (this.GetComponent<Rigidbody>().velocity.magnitude != 0f)
         {
-            this.GetComponent<AudioSource>().Play();
+            
+            if (!this.GetComponent<AudioSource>().isPlaying)
+            {
+               // this.GetComponent<AudioSource>().Play();
+            }
         }
     }
 }
