@@ -5,6 +5,7 @@ using UnityEngine;
 public class grabLeft : MonoBehaviour
 {
     public GameObject hand;
+    public GameObject parent;
     private bool canGrab;
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,7 @@ public class grabLeft : MonoBehaviour
             else
             {
                 other.GetComponent<Rigidbody>().useGravity = true;
-                other.transform.SetParent(null);
+                other.transform.SetParent(parent.transform);
                 //other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
             }
         }
