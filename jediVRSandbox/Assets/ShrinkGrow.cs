@@ -11,11 +11,17 @@ public class ShrinkGrow : MonoBehaviour
     public float minSize = 0.5f;
     public float timeToChange = 1f;
     public bool quickChange = false;
-    public bool shrinkPlayer = false;
+    public bool shrinkPlayer = true;
     public float coolDownTimer = 1f;
     private bool coolDownReady = true;
     private bool quickChangeCoolDownReady = false;
     public Camera centerEyeAnchor;
+    public Light light0;
+    public Light light1;
+    public Light light2;
+    public Light light3;
+    public Light light4;
+    public Light light5;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +31,6 @@ public class ShrinkGrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
 
         if (OVRInput.GetDown(OVRInput.RawButton.RThumbstick))
         {
@@ -83,14 +88,18 @@ public class ShrinkGrow : MonoBehaviour
     IEnumerator ScaleOverTime(float time)
     {
         Vector3 originalScale = emptyGameObject.transform.localScale;
+        float originalLight = light0.range;
+        float lightSize = 0.5f;
         Vector3 destinationScale;
         if (shrinkPlayer)
         {
              destinationScale = new Vector3(maxSize, maxSize, maxSize);
+             lightSize = 0.5f * 5;
         }
         else
         {
              destinationScale = new Vector3(minSize, minSize, minSize);
+            lightSize = 0.5f;
         }
 
         float currentTime = 0.0f;
@@ -98,6 +107,8 @@ public class ShrinkGrow : MonoBehaviour
         do
         {
             emptyGameObject.transform.localScale = Vector3.Lerp(originalScale, destinationScale, currentTime / time);
+            //light0.range = lightSize * currentTime / time;
+            light0.range = Mathf.Lerp(originalLight, lightSize, currentTime / time);
             currentTime += Time.deltaTime;
             yield return null;
         } while (currentTime <= time);

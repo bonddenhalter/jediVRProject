@@ -28,10 +28,9 @@ public class FindItem : MonoBehaviour
 	}
 	
 	void OnTriggerEnter(Collider col){
-		Debug.Log("Collision: " + col.gameObject.name);
 		//if(col.gameObject.name == player.name && !found){
 			found = true;
-			
+			Debug.Log("hit");
 			//Put object into player's inventory
 			GameObject item = this.gameObject;
 			inventory.AddItem(item);
