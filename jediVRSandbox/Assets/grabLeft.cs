@@ -41,6 +41,7 @@ public class grabLeft : MonoBehaviour
             else
             {
                 other.GetComponent<Rigidbody>().useGravity = true;
+                other.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                 other.transform.SetParent(parent.transform);
                 //other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
             }

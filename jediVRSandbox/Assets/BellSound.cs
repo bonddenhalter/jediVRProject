@@ -12,7 +12,7 @@ public class BellSound : MonoBehaviour
         lastFrame = this.transform.position;
         thisFrame = this.transform.position;
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -23,16 +23,12 @@ public class BellSound : MonoBehaviour
         {
             if (!this.GetComponent<AudioSource>().isPlaying)
             {
-                this.GetComponent<AudioSource>().Play();
+                if (!this.GetComponent<Rigidbody>().useGravity)
+                {
+                    this.GetComponent<AudioSource>().Play();
+                }
             }
         }
-        if (this.GetComponent<Rigidbody>().velocity.magnitude != 0f)
-        {
-            
-            if (!this.GetComponent<AudioSource>().isPlaying)
-            {
-               // this.GetComponent<AudioSource>().Play();
-            }
-        }
+
     }
 }

@@ -13,6 +13,7 @@ public class ConnectTheDots : MonoBehaviour
 
     public Camera playerCamera; // for determining user position
     public LineRenderer line; // the line we will draw
+    public GameObject lineReplace; // the rendered star to appear when complete
     public int numSpots; //the number of dots to connect. If we need to have the same dot twice, just create multiple dots in the same position
 
     private StretchTextScript stretchTextScript; // need this to make stretch text appear when puzzle is finished
@@ -100,6 +101,9 @@ public class ConnectTheDots : MonoBehaviour
     private void onFinish()
     {
         line.loop = true;
+        line.enabled = false;
+        lineReplace.SetActive(true);
+
         stretchTextScript.RevealText();
 
         //now we need to use the spot colliders for the crystal placement puzzle, so activate the colliders but leave the lights off
