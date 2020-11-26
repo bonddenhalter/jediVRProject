@@ -22,10 +22,15 @@ public class ShrinkGrow : MonoBehaviour
     public Light light3;
     public Light light4;
     public Light light5;
+
+    public GameObject monsterHandLeft;
+    public GameObject monsterHandRight;
+    public GameObject localAvatar; //human hands
+
     // Start is called before the first frame update
     void Start()
     {
-
+        SetHands(shrinkPlayer);
     }
 
     // Update is called once per frame
@@ -79,6 +84,7 @@ public class ShrinkGrow : MonoBehaviour
                 StartCoroutine(ScaleOverTime(timeToChange));
                 shrinkPlayer = !shrinkPlayer;
             }
+            SetHands(shrinkPlayer); //assuming shrinkPlayer has already been toggled at this point
             StartCoroutine(CoolDownCoroutine());
 
         }
@@ -133,6 +139,13 @@ public class ShrinkGrow : MonoBehaviour
         centerEyeAnchor.cullingMask = -1;
     }
 
+    // human: if true, set to human hands. If false, set to monster hands
+    void SetHands(bool human)
+    {
+        monsterHandLeft.SetActive(!human);
+        monsterHandRight.SetActive(!human);
+        localAvatar.SetActive(human);
+    }
 
 }
 
