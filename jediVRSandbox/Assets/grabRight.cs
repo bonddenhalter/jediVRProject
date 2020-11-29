@@ -20,11 +20,11 @@ public class grabRight : MonoBehaviour
         if (OVRInput.Get(OVRInput.RawButton.RHandTrigger))
         {
             canGrab = true;
+            isGrab = false;
         }
         else
         {
             canGrab = false;
-            isGrab = false;
         }
 
     }
@@ -32,23 +32,30 @@ public class grabRight : MonoBehaviour
     {
         if (other.gameObject.tag == "grab")
         {
+            isGrab = true;
             //Debug.Log("grab");
             if (canGrab)
             {
-                isGrab = true;
                 other.transform.SetParent(this.gameObject.transform);
                 other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
                 other.GetComponent<Rigidbody>().useGravity = false;
             }
             else
             {
-                isGrab = false;
                 other.GetComponent<Rigidbody>().useGravity = true;
                 if (OVRInput.GetUp(OVRInput.RawButton.RHandTrigger))
                     other.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                 other.transform.SetParent(parent.transform);
                 //other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "grab")
+        {
+            isGrab = false;
         }
     }
 }

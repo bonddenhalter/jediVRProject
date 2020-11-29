@@ -7,6 +7,7 @@ public class grabLeft : MonoBehaviour
     public GameObject hand;
     public GameObject parent;
     private bool canGrab;
+    public bool isGrab;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,7 @@ public class grabLeft : MonoBehaviour
         if (OVRInput.Get(OVRInput.RawButton.LHandTrigger))
         {
             canGrab = true;
+            isGrab = false;
         }
         else
         {
@@ -31,6 +33,7 @@ public class grabLeft : MonoBehaviour
 
         if (other.gameObject.tag == "grab")
         {
+            isGrab = true;
             //Debug.Log("grab");
             if (canGrab)
             {
@@ -46,6 +49,14 @@ public class grabLeft : MonoBehaviour
                 other.transform.SetParent(parent.transform);
                 //other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "grab")
+        {
+            isGrab = false;
         }
     }
 }
