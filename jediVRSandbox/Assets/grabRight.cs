@@ -7,6 +7,7 @@ public class grabRight : MonoBehaviour
     public GameObject hand;
     public GameObject parent;
     private bool canGrab;
+    public bool isGrab;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +24,7 @@ public class grabRight : MonoBehaviour
         else
         {
             canGrab = false;
+            isGrab = false;
         }
 
     }
@@ -33,14 +35,17 @@ public class grabRight : MonoBehaviour
             //Debug.Log("grab");
             if (canGrab)
             {
+                isGrab = true;
                 other.transform.SetParent(this.gameObject.transform);
                 other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
                 other.GetComponent<Rigidbody>().useGravity = false;
             }
             else
             {
+                isGrab = false;
                 other.GetComponent<Rigidbody>().useGravity = true;
-                other.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
+                if (OVRInput.GetUp(OVRInput.RawButton.RHandTrigger))
+                    other.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);
                 other.transform.SetParent(parent.transform);
                 //other.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
             }

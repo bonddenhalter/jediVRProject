@@ -18,7 +18,7 @@ public class GlowingClue : MonoBehaviour
         sprites = GetComponentsInChildren<SpriteRenderer>();
         foreach (SpriteRenderer sprite in sprites) //start out invisible
         {
-            if (sprite.name != "Candle")
+            if (sprite.name != "newCandle")
             {
                 Color color = sprite.color;
                 color.a = 0.0f;
@@ -46,7 +46,7 @@ public class GlowingClue : MonoBehaviour
 
         foreach (SpriteRenderer sprite in sprites)
         {
-            if (sprite.name != "Candle")
+            if (sprite.name != "newCandle")
             {
                 Color color = sprite.color;
                 color.a = opacity; //the alpha value is the opacity

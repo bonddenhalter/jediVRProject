@@ -26,8 +26,9 @@ public class UnlockItem : MonoBehaviour
 	private bool open = false;
 	private Vector3 hitRadius;
 	private Inventory inventory;
+	public Animator animator;
 
-    void Start()
+	void Start()
     {
 		if(name == "box"){
 			//https://answers.unity.com/questions/183649/how-to-find-a-child-gameobject-by-name.html
@@ -56,9 +57,10 @@ public class UnlockItem : MonoBehaviour
 			//https://answers.unity.com/questions/1699266/how-do-you-check-if-a-game-object-is-in-the-radius.html
 			if(Vector3.Distance(transform.position, player.transform.position) < 5 && !open){
 				open = true;
-				
-			   //rotate lid
-			   lid.transform.Translate(hinge.transform.localPosition);
+
+				//rotate lid
+				animator.SetBool("isOpen", true);
+				lid.transform.Translate(hinge.transform.localPosition);
 			   lid.transform.Rotate(90, 0, 0);
 			}
 		}
