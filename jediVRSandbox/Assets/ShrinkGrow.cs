@@ -27,6 +27,8 @@ public class ShrinkGrow : MonoBehaviour
     public GameObject monsterHandRight;
     public GameObject localAvatar; //human hands
 
+    private bool shrinkGrowEnabled = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +45,7 @@ public class ShrinkGrow : MonoBehaviour
         }
 
         //Uses Button A on the Rift
-        if (OVRInput.Get(OVRInput.RawButton.A) && coolDownReady)
+        if (OVRInput.Get(OVRInput.RawButton.A) && coolDownReady && shrinkGrowEnabled)
         {
             emptyGameObject = new GameObject("GameObject used to scale world");
             this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
@@ -95,17 +97,17 @@ public class ShrinkGrow : MonoBehaviour
     {
         Vector3 originalScale = emptyGameObject.transform.localScale;
         float originalLight = light0.range;
-        float lightSize = 0.5f;
+        float lightSize = 0.3f;
         Vector3 destinationScale;
         if (shrinkPlayer)
         {
              destinationScale = new Vector3(maxSize, maxSize, maxSize);
-             lightSize = 0.5f * 5;
+             lightSize = 0.3f * 5;
         }
         else
         {
              destinationScale = new Vector3(minSize, minSize, minSize);
-            lightSize = 0.5f;
+            lightSize = 0.3f;
         }
 
         float currentTime = 0.0f;
@@ -113,8 +115,15 @@ public class ShrinkGrow : MonoBehaviour
         do
         {
             emptyGameObject.transform.localScale = Vector3.Lerp(originalScale, destinationScale, currentTime / time);
+
             //light0.range = lightSize * currentTime / time;
             light0.range = Mathf.Lerp(originalLight, lightSize, currentTime / time);
+            light1.range = Mathf.Lerp(originalLight, lightSize, currentTime / time);
+            light2.range = Mathf.Lerp(originalLight, lightSize, currentTime / time);
+            light3.range = Mathf.Lerp(originalLight, lightSize, currentTime / time);
+            light4.range = Mathf.Lerp(originalLight, lightSize, currentTime / time);
+            light5.range = Mathf.Lerp(originalLight, lightSize, currentTime / time);
+
             currentTime += Time.deltaTime;
             yield return null;
         } while (currentTime <= time);
@@ -145,6 +154,11 @@ public class ShrinkGrow : MonoBehaviour
         monsterHandLeft.SetActive(!human);
         monsterHandRight.SetActive(!human);
         localAvatar.SetActive(human);
+    }
+
+    public void EnableShrinkGrow(bool enable)
+    {
+        shrinkGrowEnabled = enable;
     }
 
 }

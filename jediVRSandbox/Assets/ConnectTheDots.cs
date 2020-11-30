@@ -23,6 +23,8 @@ public class ConnectTheDots : MonoBehaviour
     private bool finished = false; // true if we've connected all the dots and finished the puzzle
     private float heightAboveGround; //how high off the ground the lines should be drawn
 
+    private ShrinkGrow shrinkGrowScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,11 +35,13 @@ public class ConnectTheDots : MonoBehaviour
             spot.SetActive(false);
         }
 
-        heightAboveGround = nextSpot.transform.position[1] - 0.5f;
+        heightAboveGround = nextSpot.transform.position[1] + 0.5f;
         line.SetPosition(0, new Vector3(nextSpot.transform.position[0], heightAboveGround, nextSpot.transform.position[2])); //initialize the line to be at the center of the first dot
         line.SetPosition(1, new Vector3(nextSpot.transform.position[0], heightAboveGround, nextSpot.transform.position[2]));
 
         stretchTextScript = this.transform.parent.Find("Stretch-Text Puzzle").GetComponent<StretchTextScript>();
+
+        shrinkGrowScript = FindObjectOfType<ShrinkGrow>();
 
         //** uncomment these 2 lines to skip connect-the-dots puzzle (so it's faster to test the crystal placement puzzle, for example) **//
         //finished = true;
@@ -58,8 +62,9 @@ public class ConnectTheDots : MonoBehaviour
     {
         if (!finished) //ignore touches after we've finished the puzzle
         {
-            if (spotName == "Spot0") //start the game when you touch the first dot
+            if (spotName == "Spot0" && !shrinkGrowScript.shrinkPlayer) //start the game when you touch the first dot, if we're in mouse form
             {
+                shrinkGrowScript.EnableShrinkGrow(false); //disable transmogrification until the puzzle is complete
                 inProgress = true;
             }
 
@@ -103,6 +108,8 @@ public class ConnectTheDots : MonoBehaviour
         line.loop = true;
         line.enabled = false;
         lineReplace.SetActive(true);
+
+        shrinkGrowScript.EnableShrinkGrow(true); //allow transmogrification
 
         stretchTextScript.RevealText();
 

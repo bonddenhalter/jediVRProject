@@ -13,7 +13,7 @@ public class GameControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || OVRInput.Get(OVRInput.Button.Two))
+        if (Input.GetKeyDown(KeyCode.Escape) /*|| OVRInput.Get(OVRInput.Button.Two)*/)
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
