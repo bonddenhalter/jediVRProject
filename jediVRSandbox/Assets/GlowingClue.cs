@@ -12,6 +12,10 @@ public class GlowingClue : MonoBehaviour
 
     private SpriteRenderer[] sprites;
 
+    public AudioSource discoverClueSound;
+    public AudioSource musicSound;
+    private bool discovered = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +56,14 @@ public class GlowingClue : MonoBehaviour
                 color.a = opacity; //the alpha value is the opacity
                 sprite.color = color;
             }
+        }
+
+        if (!discovered && opacity > 0.3f)
+        {
+            musicSound.Stop();
+            discoverClueSound.Play();
+            musicSound.PlayDelayed(discoverClueSound.clip.length);
+            discovered = true;
         }
 
     }

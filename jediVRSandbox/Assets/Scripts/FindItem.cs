@@ -21,6 +21,8 @@ public class FindItem : MonoBehaviour
 	private bool found = false;
 	private Inventory inventory;
 	private GameObject player;
+
+    public AudioSource itemFoundSound;
 		
 	void Start(){
 		player = GameObject.Find("OVRPlayerController");
@@ -34,6 +36,8 @@ public class FindItem : MonoBehaviour
 			//Put object into player's inventory
 			GameObject item = this.gameObject;
 			inventory.AddItem(item);
+
+            itemFoundSound.Play();
 		//}
 	}	
 }

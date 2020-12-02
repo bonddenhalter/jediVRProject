@@ -28,6 +28,8 @@ public class UnlockItem : MonoBehaviour
 	private Inventory inventory;
 	public Animator animator;
 
+    public AudioSource boxOpenSound;
+
 	void Start()
     {
 		if(name == "box"){
@@ -61,7 +63,10 @@ public class UnlockItem : MonoBehaviour
 				//rotate lid
 				animator.SetBool("isOpen", true);
 				lid.transform.Translate(hinge.transform.localPosition);
-			   lid.transform.Rotate(90, 0, 0);
+			    lid.transform.Rotate(90, 0, 0);
+
+                //play sound
+                boxOpenSound.Play();
 			}
 		}
 	}

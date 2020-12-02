@@ -11,6 +11,9 @@ public class CrystalPlacement : MonoBehaviour
     private bool finished = false;
     private List<GameObject> crystals = new List<GameObject>();
 
+    public AudioSource crystalsPlacedSound;
+    public AudioSource musicSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +71,15 @@ public class CrystalPlacement : MonoBehaviour
         finished = true;
         toggleCrystalGlows(true); //turn on crystal glows
 
+        musicSound.Stop();
+        crystalsPlacedSound.Play();
+        musicSound.PlayDelayed(crystalsPlacedSound.clip.length);
+
         //TODO: either disable the ability to grab the crystals, or make them stop glowing if they move them again. I think the first option would be better
+        foreach (GameObject crystal in crystals)
+        {
+            crystal.tag = "Untagged";
+        }
 
     }
 }

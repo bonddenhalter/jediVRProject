@@ -29,6 +29,8 @@ public class ShrinkGrow : MonoBehaviour
 
     private bool shrinkGrowEnabled = true;
 
+    public AudioSource incorrectSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,49 +47,57 @@ public class ShrinkGrow : MonoBehaviour
         }
 
         //Uses Button A on the Rift
-        if (OVRInput.Get(OVRInput.RawButton.A) && coolDownReady && shrinkGrowEnabled)
+        if (OVRInput.Get(OVRInput.RawButton.A) && coolDownReady)
         {
-            emptyGameObject = new GameObject("GameObject used to scale world");
-            this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-            emptyGameObject.transform.position = new Vector3 (player.transform.position.x, 0f, player.transform.position.z);
-            emptyGameObject.transform.localScale = map.transform.localScale;
-            map.transform.SetParent(emptyGameObject.transform);
-            if (quickChange)
+            if (shrinkGrowEnabled)
             {
-                StartCoroutine(Blindfold());
-                if (shrinkPlayer)
+                emptyGameObject = new GameObject("GameObject used to scale world");
+                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                emptyGameObject.transform.position = new Vector3 (player.transform.position.x, 0f, player.transform.position.z);
+                emptyGameObject.transform.localScale = map.transform.localScale;
+                map.transform.SetParent(emptyGameObject.transform);
+                if (quickChange)
                 {
-                    this.gameObject.GetComponent<CharacterController>().height = 1f;
-                    this.gameObject.GetComponent<CharacterController>().radius = 0.25f;
-                    emptyGameObject.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
+                    StartCoroutine(Blindfold());
+                    if (shrinkPlayer)
+                    {
+                        this.gameObject.GetComponent<CharacterController>().height = 1f;
+                        this.gameObject.GetComponent<CharacterController>().radius = 0.25f;
+                        emptyGameObject.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
+                    }
+                    else
+                    {
+                        this.gameObject.GetComponent<CharacterController>().height = 2f;
+                        this.gameObject.GetComponent<CharacterController>().radius = 0.5f;
+                        emptyGameObject.transform.localScale = new Vector3(minSize, minSize, minSize);
+                    }
+                    map.transform.SetParent(null);
+                    this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                    shrinkPlayer = !shrinkPlayer;
                 }
-                else
+                else 
                 {
-                    this.gameObject.GetComponent<CharacterController>().height = 2f;
-                    this.gameObject.GetComponent<CharacterController>().radius = 0.5f;
-                    emptyGameObject.transform.localScale = new Vector3(minSize, minSize, minSize);
+                    if (shrinkPlayer)
+                    {
+                        this.gameObject.GetComponent<CharacterController>().height = 1f;
+                        this.gameObject.GetComponent<CharacterController>().radius = 0.25f;
+                    }
+                    else
+                    {
+                        this.gameObject.GetComponent<CharacterController>().height = 2f;
+                        this.gameObject.GetComponent<CharacterController>().radius = 0.5f;
+                    }
+                    StartCoroutine(ScaleOverTime(timeToChange));
+                    shrinkPlayer = !shrinkPlayer;
                 }
-                map.transform.SetParent(null);
-                this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-                shrinkPlayer = !shrinkPlayer;
+                SetHands(shrinkPlayer); //assuming shrinkPlayer has already been toggled at this point
+                StartCoroutine(CoolDownCoroutine());
             }
-            else 
+            else
             {
-                if (shrinkPlayer)
-                {
-                    this.gameObject.GetComponent<CharacterController>().height = 1f;
-                    this.gameObject.GetComponent<CharacterController>().radius = 0.25f;
-                }
-                else
-                {
-                    this.gameObject.GetComponent<CharacterController>().height = 2f;
-                    this.gameObject.GetComponent<CharacterController>().radius = 0.5f;
-                }
-                StartCoroutine(ScaleOverTime(timeToChange));
-                shrinkPlayer = !shrinkPlayer;
+                incorrectSound.Play();
             }
-            SetHands(shrinkPlayer); //assuming shrinkPlayer has already been toggled at this point
-            StartCoroutine(CoolDownCoroutine());
+            
 
         }
 

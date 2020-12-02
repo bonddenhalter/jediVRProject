@@ -23,6 +23,11 @@ public class ConnectTheDots : MonoBehaviour
     private bool finished = false; // true if we've connected all the dots and finished the puzzle
     private float heightAboveGround; //how high off the ground the lines should be drawn
 
+    public AudioSource dotTouchAudio;
+    public AudioSource starCompleteAudio;
+    public AudioSource starInProgressAudio;
+    public AudioSource musicAudio;
+
     private ShrinkGrow shrinkGrowScript;
 
     // Start is called before the first frame update
@@ -66,6 +71,8 @@ public class ConnectTheDots : MonoBehaviour
             {
                 shrinkGrowScript.EnableShrinkGrow(false); //disable transmogrification until the puzzle is complete
                 inProgress = true;
+                musicAudio.Stop();
+                starInProgressAudio.Play();
             }
 
             if (spotName == nextSpot.name && inProgress) //reached the next checkpoint
@@ -81,6 +88,9 @@ public class ConnectTheDots : MonoBehaviour
                 lightCount++;
 
                 nextSpot.SetActive(false); //disable the current light
+
+                dotTouchAudio.Play();
+
             }
 
             if (lightCount == numSpots) // finished the game by reaching the last light
@@ -108,6 +118,10 @@ public class ConnectTheDots : MonoBehaviour
         line.loop = true;
         line.enabled = false;
         lineReplace.SetActive(true);
+
+        starInProgressAudio.Stop();
+        starCompleteAudio.Play();
+        musicAudio.PlayDelayed(starCompleteAudio.clip.length);
 
         shrinkGrowScript.EnableShrinkGrow(true); //allow transmogrification
 
