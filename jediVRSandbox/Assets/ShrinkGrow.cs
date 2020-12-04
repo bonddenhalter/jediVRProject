@@ -22,6 +22,8 @@ public class ShrinkGrow : MonoBehaviour
     public Light light3;
     public Light light4;
     public Light light5;
+    public Light roomLight;
+    private float roomLightSize;
 
     public GameObject monsterHandLeft;
     public GameObject monsterHandRight;
@@ -30,6 +32,8 @@ public class ShrinkGrow : MonoBehaviour
     private bool shrinkGrowEnabled = true;
 
     public AudioSource incorrectSound;
+    public AudioSource growSound;
+    public AudioSource shrinkSound;
 
     // Start is called before the first frame update
     void Start()
@@ -64,12 +68,16 @@ public class ShrinkGrow : MonoBehaviour
                         this.gameObject.GetComponent<CharacterController>().height = 1f;
                         this.gameObject.GetComponent<CharacterController>().radius = 0.25f;
                         emptyGameObject.transform.localScale = new Vector3(maxSize, maxSize, maxSize);
+
+                        shrinkSound.Play();
                     }
                     else
                     {
                         this.gameObject.GetComponent<CharacterController>().height = 2f;
                         this.gameObject.GetComponent<CharacterController>().radius = 0.5f;
                         emptyGameObject.transform.localScale = new Vector3(minSize, minSize, minSize);
+
+                        growSound.Play();
                     }
                     map.transform.SetParent(null);
                     this.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
@@ -81,11 +89,15 @@ public class ShrinkGrow : MonoBehaviour
                     {
                         this.gameObject.GetComponent<CharacterController>().height = 1f;
                         this.gameObject.GetComponent<CharacterController>().radius = 0.25f;
+
+                        shrinkSound.Play();
                     }
                     else
                     {
                         this.gameObject.GetComponent<CharacterController>().height = 2f;
                         this.gameObject.GetComponent<CharacterController>().radius = 0.5f;
+
+                        growSound.Play();
                     }
                     StartCoroutine(ScaleOverTime(timeToChange));
                     shrinkPlayer = !shrinkPlayer;
@@ -108,16 +120,21 @@ public class ShrinkGrow : MonoBehaviour
         Vector3 originalScale = emptyGameObject.transform.localScale;
         float originalLight = light0.range;
         float lightSize = 0.3f;
+
+        float roomLightRange = roomLight.range;
+        float newRoomLightRange;
         Vector3 destinationScale;
         if (shrinkPlayer)
         {
-             destinationScale = new Vector3(maxSize, maxSize, maxSize);
-             lightSize = 0.3f * 5;
+            destinationScale = new Vector3(maxSize, maxSize, maxSize);
+            lightSize = 0.3f * 5;
+            newRoomLightRange = roomLightRange * 5;
         }
         else
         {
-             destinationScale = new Vector3(minSize, minSize, minSize);
+            destinationScale = new Vector3(minSize, minSize, minSize);
             lightSize = 0.3f;
+            newRoomLightRange = roomLightRange / 5;
         }
 
         float currentTime = 0.0f;
@@ -133,6 +150,7 @@ public class ShrinkGrow : MonoBehaviour
             light3.range = Mathf.Lerp(originalLight, lightSize, currentTime / time);
             light4.range = Mathf.Lerp(originalLight, lightSize, currentTime / time);
             light5.range = Mathf.Lerp(originalLight, lightSize, currentTime / time);
+            roomLight.range = Mathf.Lerp(roomLightRange, newRoomLightRange, currentTime / time);
 
             currentTime += Time.deltaTime;
             yield return null;
