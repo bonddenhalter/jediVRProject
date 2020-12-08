@@ -1,0 +1,227 @@
+fileFormatVersion: 2
+guid: 31dfbba9ebd5b4e4591e6c1f38350288
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Archipack_snap_helper
+    100004: Camera
+    100006: Cube
+    100008: Cube.001
+    100010: Cube.002
+    100012: Cube.003
+    100014: Cube.005
+    100016: Cube.006
+    100018: Cube.007
+    100020: Cube.008
+    100022: Cylinder
+    100024: Fence
+    100026: Floor
+    100028: Inner wall
+    100030: Inner wall.001
+    100032: Inner wall.002
+    100034: Inner wall.003
+    100036: Light
+    100038: Outter Wall
+    100040: Outter Wall.001
+    100042: Outter Wall.002
+    100044: Outter Wall.003
+    100046: Plane
+    100048: Roof
+    400000: //RootNode
+    400002: Archipack_snap_helper
+    400004: Camera
+    400006: Cube
+    400008: Cube.001
+    400010: Cube.002
+    400012: Cube.003
+    400014: Cube.005
+    400016: Cube.006
+    400018: Cube.007
+    400020: Cube.008
+    400022: Cylinder
+    400024: Fence
+    400026: Floor
+    400028: Inner wall
+    400030: Inner wall.001
+    400032: Inner wall.002
+    400034: Inner wall.003
+    400036: Light
+    400038: Outter Wall
+    400040: Outter Wall.001
+    400042: Outter Wall.002
+    400044: Outter Wall.003
+    400046: Plane
+    400048: Roof
+    2000000: Camera
+    2100000: No Name
+    2100002: Fence_metal
+    2100004: Fence_wood
+    2100006: Roof_rakes
+    2100008: Roof_eaves
+    2100010: Roof_ridge
+    2100012: Roof_hip_stone
+    2100014: Roof_valley
+    2100016: Roof_sheeting
+    2100018: Roof_rafter
+    2100020: Material.004
+    2100022: Material.005
+    2100024: Material.002
+    2100026: Material.006
+    2100028: Material.007
+    2100030: Material.010
+    2100032: Material.015
+    2300000: Archipack_snap_helper
+    2300002: Cube
+    2300004: Cube.001
+    2300006: Cube.002
+    2300008: Cube.003
+    2300010: Cube.005
+    2300012: Cube.006
+    2300014: Cube.007
+    2300016: Cube.008
+    2300018: Cylinder
+    2300020: Fence
+    2300022: Floor
+    2300024: Inner wall
+    2300026: Inner wall.001
+    2300028: Inner wall.002
+    2300030: Inner wall.003
+    2300032: Outter Wall
+    2300034: Outter Wall.001
+    2300036: Outter Wall.002
+    2300038: Outter Wall.003
+    2300040: Plane
+    2300042: Roof
+    3300000: Archipack_snap_helper
+    3300002: Cube
+    3300004: Cube.001
+    3300006: Cube.002
+    3300008: Cube.003
+    3300010: Cube.005
+    3300012: Cube.006
+    3300014: Cube.007
+    3300016: Cube.008
+    3300018: Cylinder
+    3300020: Fence
+    3300022: Floor
+    3300024: Inner wall
+    3300026: Inner wall.001
+    3300028: Inner wall.002
+    3300030: Inner wall.003
+    3300032: Outter Wall
+    3300034: Outter Wall.001
+    3300036: Outter Wall.002
+    3300038: Outter Wall.003
+    3300040: Plane
+    3300042: Roof
+    4300000: Cube
+    4300002: Cylinder
+    4300004: Fence
+    4300006: Roof
+    4300008: Cube.001
+    4300010: Cube.002
+    4300012: Cube.003
+    4300014: Outter Wall
+    4300016: Inner wall
+    4300018: Outter Wall.001
+    4300020: Outter Wall.002
+    4300022: Inner wall.001
+    4300024: Inner wall.002
+    4300026: Floor
+    4300028: Cube.005
+    4300030: Cube.006
+    4300032: Cube.007
+    4300034: Cube.008
+    4300036: Plane
+    4300038: Inner wall.003
+    4300040: Outter Wall.003
+    4300042: Archipack_snap_helper
+    10800000: Light
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
